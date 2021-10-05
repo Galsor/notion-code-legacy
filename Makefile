@@ -2,7 +2,7 @@
 
 PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 PROFILE = default
-PROJECT_NAME = lambda-scraper
+PROJECT_NAME = notion-code-legacy
 VENV_NAME = .venv
 PYTHON_INTERPRETER = $(PROJECT_DIR)/$(VENV_NAME)/bin/python3
 SRC_DIR = lambda_scraper
@@ -10,7 +10,7 @@ ENTRYPOINT_FILE = $(SRC_DIR)/app.py
 
 ## Create virtual environment
 make_env:
-	$(shell if [ ! -d ".venv" ]; then $(PYTHON_INTERPRETER) -m venv $(VENV_NAME); fi)
+	$(shell if [ ! -d ".venv" ]; then python3 -m venv $(VENV_NAME); fi)
 
 ## Install Python Dependencies
 requirements: make_env
