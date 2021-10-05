@@ -1,0 +1,7 @@
+app:
+  user: "root_user"
+  num1: 10
+  num2: 20
+db:
+  host: "localhost"
+  port: 3306
