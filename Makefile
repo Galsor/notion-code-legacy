@@ -5,7 +5,7 @@ PROFILE = default
 PROJECT_NAME = notion-code-legacy
 VENV_NAME = .venv
 PYTHON_INTERPRETER = $(PROJECT_DIR)/$(VENV_NAME)/bin/python3
-SRC_DIR = lambda_scraper
+SRC_DIR = src
 ENTRYPOINT_FILE = $(SRC_DIR)/app.py
 
 ## Create virtual environment

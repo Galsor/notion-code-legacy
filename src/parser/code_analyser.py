@@ -1,13 +1,12 @@
-from typing import List, Dict, Union
-import tokenize
-import token as token_types
-from pathlib import Path
 import logging
+import token as token_types
+import tokenize
+from pathlib import Path
 from pprint import pprint
+from typing import Dict, List, Union
 
 from src.parser.record import CodeRecord
 from src.utils.types import CommentTypes
-
 
 logger = logging.getLogger(__name__)
 
@@ -41,7 +40,9 @@ class AnalysedFile:
                 # Recording process
                 if token.type == token_types.COMMENT and record is None:
                     logger.debug("Start code recording")
-                    record = CodeRecord(filepath=self._path, line=token.start[0], comment=token.string)
+                    record = CodeRecord(
+                        filepath=self._path, line=token.start[0], comment=token.string
+                    )
                     if record.type is not None:
                         # Next value is "NL" which is an end of part and a stopping trigger
                         next_skip = True
@@ -53,7 +54,10 @@ class AnalysedFile:
                     # So the comment is pursuing after a newline.
                     record.comment += token.string
                     next_skip = True
-                elif record is not None and token.type in [token_types.NL, token_types.ENDMARKER]:
+                elif record is not None and token.type in [
+                    token_types.NL,
+                    token_types.ENDMARKER,
+                ]:
                     logger.debug("End code recording")
                     self._records.append(record)
                     record = None
@@ -62,7 +66,9 @@ class AnalysedFile:
 
     def _configure_properties(self):
         for comment_type in CommentTypes:
-            record_list = [r for r in self._records if CommentTypes(r.type) is comment_type]
+            record_list = [
+                r for r in self._records if CommentTypes(r.type) is comment_type
+            ]
             setattr(self, comment_type.value, record_list)
 
     def to_dict(self) -> Dict[str, List[CodeRecord]]:
@@ -72,21 +78,25 @@ class AnalysedFile:
                     commment_type: List[CodeRecord]
                     }}
         """
-        return {attr: self.__getattribute__(attr) for attr in dir(self)\
-                if not attr.startswith("_")\
-                and not callable(self.__getattribute__(attr))\
-                and self.__getattribute__(attr)\
-                }
+        return {
+            attr: self.__getattribute__(attr)
+            for attr in dir(self)
+            if not attr.startswith("_")
+            and not callable(self.__getattribute__(attr))
+            and self.__getattribute__(attr)
+        }
 
     def to_list(self) -> List[CodeRecord]:
-        """ Returns the list of CodeRecords collected in the file"""
-        list_of_comment_types_list = [ self.__getattribute__(attr) for attr in dir(self) \
-         if not attr.startswith("_") \
-         and not callable(self.__getattribute__(attr)) \
-         and self.__getattribute__(attr)]
+        """Returns the list of CodeRecords collected in the file"""
+        list_of_comment_types_list = [
+            self.__getattribute__(attr)
+            for attr in dir(self)
+            if not attr.startswith("_")
+            and not callable(self.__getattribute__(attr))
+            and self.__getattribute__(attr)
+        ]
         flatten_list = [r for r_list in list_of_comment_types_list for r in r_list]
         return flatten_list
-
 
     def is_empty(self):
         return len(self._records) == 0
@@ -122,6 +132,6 @@ def run_static_analysis(starting_path: str) -> List[CodeRecord]:
 
 
 if __name__ == "__main__":
-    #logging.basicConfig(level=logging.DEBUG)
-    #pprint(run_static_analysis("../../ddst"))
+    # logging.basicConfig(level=logging.DEBUG)
+    # pprint(run_static_analysis("../../ddst"))
     pprint(run_static_analysis("."))

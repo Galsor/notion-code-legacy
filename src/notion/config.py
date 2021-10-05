@@ -1,6 +1,8 @@
 import os
-from pydantic import BaseModel
 from typing import List
+
+from pydantic import BaseModel
+
 
 class NotionConfig(BaseModel):
     ROOT_URL: str = "https://api.notion.com/v1"

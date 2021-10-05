@@ -1,10 +1,11 @@
-import re
 import inspect
-from pathlib import Path
+import re
 from dataclasses import dataclass, field
-from typing import List, Dict
+from pathlib import Path
+from typing import Dict, List
 
 from src.utils.types import CommentTypes
+
 
 @dataclass
 class CodeRecord:
@@ -48,15 +49,18 @@ class CodeRecord:
         else:
             self._code.append(code)
 
-    def to_dict(self) -> Dict[str,str]:
-        return {attr: self.__getattribute__(attr) for attr in dir(self) if
-                not attr.startswith("_") and not callable(self.__getattribute__(attr))}
+    def to_dict(self) -> Dict[str, str]:
+        return {
+            attr: self.__getattribute__(attr)
+            for attr in dir(self)
+            if not attr.startswith("_") and not callable(self.__getattribute__(attr))
+        }
 
     @classmethod
     def get_schema(cls):
-        #FIXME some attributes are missing
+        # FIXME some attributes are missing
         # This function would enable to update table with missing fields
-        attributes = inspect.getmembers(cls, lambda attr: not(inspect.isroutine(attr)))
+        attributes = inspect.getmembers(cls, lambda attr: not (inspect.isroutine(attr)))
         return [attr[0] for attr in attributes if not attr[0].startswith("_")]
 
     def __str__(self) -> str:
