@@ -21,7 +21,7 @@ run_app: requirements
 	$(PYTHON_INTERPRETER) $(ENTRYPOINT_FILE)
 
 ## Run unit tests
-unit_test: requirements
+unit_test:
 	$(PYTHON_INTERPRETER) -m pytest
 
 ## Delete all compiled Python files

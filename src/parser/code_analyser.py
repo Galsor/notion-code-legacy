@@ -74,9 +74,7 @@ class AnalysedFile:
     def to_dict(self) -> Dict[str, List[CodeRecord]]:
         """
         Return a dictionary structure by filenames and comment type:
-        { filename: {
-                    commment_type: List[CodeRecord]
-                    }}
+        { commment_type: List[CodeRecord] }
         """
         return {
             attr: self.__getattribute__(attr)
