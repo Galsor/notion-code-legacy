@@ -6,6 +6,7 @@ from src.notion.config import NotionConfig
 
 @pytest.fixture(scope="session")
 def mock_notion_config():
+    #TODO : add database ID
     return NotionConfig(
         NOTION_KE=os.environ["notion_key_test"],
 
@@ -15,4 +16,4 @@ def mock_notion_config():
 
 @pytest.fixture(scope="session")
 def mock_notion_client(mock_notion_config):
-    return NotionClient()
+    return NotionClient(config=mock_notion_config)
