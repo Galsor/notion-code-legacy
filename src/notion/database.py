@@ -2,7 +2,7 @@ import json
 import logging
 from datetime import datetime
 
-from src.notion.client import NotionClient
+from src.notion.old_client import NotionClient
 from src.notion.config import NotionConfig
 from src.parser.record import CodeRecord
 
