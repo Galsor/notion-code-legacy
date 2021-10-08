@@ -18,7 +18,7 @@ class CodeRecord:
     @property
     def type(self) -> str:
         comment_types_list = [e.value for e in CommentTypes]
-        pattern = re.compile("^(?:\#\s*)(" + "|".join(comment_types_list) + ")")
+        pattern = re.compile(r"^(?:\#\s*)(" + "|".join(comment_types_list) + ")")
         match = pattern.match(self.comment)
         if match is not None:
             match_type = match.group(1)
