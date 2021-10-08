@@ -1,0 +1,7 @@
+ROOT_URL: "https://api.notion.com/v1"
+NOTION_DATABASE_ID_LIST: []
+LOG_LEVEL: "INFO"
+hydra:
+  job:
+    env_copy:
+      - NOTION_KEY
