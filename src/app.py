@@ -3,7 +3,6 @@ import os
 import hydra
 from omegaconf import DictConfig, OmegaConf
 from dotenv import load_dotenv
-from pathlib import Path
 import functools
 
 from notion.client import NotionClient
@@ -23,9 +22,11 @@ def load_env(func):
 @hydra.main(config_path="../config", config_name="config")
 def run_app(cfg: DictConfig):
     logging.basicConfig(level=cfg.LOG_LEVEL)
-    logger.debug("Debug is printed")
+    logger.debug("Debug mode is turned on")
     logger.info(OmegaConf.to_yaml(cfg))
-    NotionClient(config=cfg, auth=os.environ.get("NOTION_KEY"))
+    nc = NotionClient(config=cfg, auth=os.environ.get("NOTION_KEY"))
+    from pprint import pprint
+    pprint(nc.retrieve_db("5fa76a72f4f84db1b46a46e0978c3b2c"))
 
 
 if __name__ == "__main__":

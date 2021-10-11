@@ -1,7 +1,7 @@
-app:
-  user: "root_user"
-  num1: 10
-  num2: 20
-db:
-  host: "localhost"
-  port: 3306
+ROOT_URL: "https://api.notion.com/v1"
+NOTION_DATABASE_ID_LIST: ["5fa76a72f4f84db1b46a46e0978c3b2c"]
+LOG_LEVEL: "DEBUG"
+hydra:
+  job:
+    env_copy:
+      - TEST_NOTION_KEY
