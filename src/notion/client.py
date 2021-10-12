@@ -111,6 +111,9 @@ class NotionClient:
         )
 
     @notion_request
-    def delete_page(self):
-        #TODO
-        pass
+    def retrieve_page(self, page_id: str):
+        return self._client.pages.retrive(page_id)
+
+    @notion_request
+    def delete_page(self, page_id: str):
+        return self._client.pages.update(page_id, archived=True)
