@@ -87,8 +87,12 @@ def test_retrieve_db(mock_notion_client, db_id):
 def test_query_db(mock_notion_client, db_id):
     assert mock_notion_client.query_db(database_id=db_id)
 
-def test_add_page(mock_notion_client, db_id, page_properties, page_children):
-    assert mock_notion_client.add_page(database_id=db_id, properties=page_properties, children=page_children)
+# Could be refactored in a more unitarian manner
+def test_page_create_and_deletion(mock_notion_client, db_id, page_properties, page_children):
+    page_res = mock_notion_client.add_page(database_id=db_id, properties=page_properties, children=page_children)
+    assert page_res
+    page_id = page_res["id"]
+    delete_res = mock_notion_client.delete_page(page_id=page_id)
+    assert delete_res["archived"]==True
 
-def test_delete_page(mock_notion_client):
-    assert 1
+
